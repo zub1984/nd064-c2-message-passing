@@ -56,7 +56,7 @@ spec:
         app: postgres-person
     spec:
       containers:
-        - name: postgres-person-cpntainer
+        - name: postgres-person-container
           image:  library/postgres:latest
           imagePullPolicy: "IfNotPresent"
           ports:
