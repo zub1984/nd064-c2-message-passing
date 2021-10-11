@@ -25,7 +25,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            zub1984/techtrends
+            zub1984/connections-service-api
           # generate Docker tags based on the following events/attributes
           tags: |
             type=ref,event=branch
