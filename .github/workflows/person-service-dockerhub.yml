@@ -1,4 +1,4 @@
-name: "UdaConnect Connection Service - Package with Docker"
+name: "UdaConnect Person Service - Package with Docker"
 
 on:
   schedule:
