@@ -31,7 +31,7 @@ spec:
         service: connections-api
     spec:
       containers:
-      - image: zub1984/connections-service-api:latest
+      - image: zub1984/connections-service-api:main
         name: connections-api-container
         imagePullPolicy: Always
         env:
