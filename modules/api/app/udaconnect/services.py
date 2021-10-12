@@ -110,7 +110,7 @@ class LocationService:
 
         return new_location
 
-"""
+
 class PersonService:
     @staticmethod
     def create(person: Dict) -> Person:
@@ -132,4 +132,3 @@ class PersonService:
     @staticmethod
     def retrieve_all() -> List[Person]:
         return db.session.query(Person).all()
-"""
