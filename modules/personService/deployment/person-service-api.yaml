@@ -33,7 +33,7 @@ spec:
       containers:
       - image: zub1984/person-service-api:latest
         name: person-service-api
-        imagePullPolicy: Always
+        imagePullPolicy: "IfNotPresent"
         env:
         - name: DB_USERNAME
           valueFrom:

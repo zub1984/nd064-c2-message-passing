@@ -33,7 +33,7 @@ spec:
       containers:
       - image: zub1984/loc-event-producer-service-api:latest
         name: loc-event-api-container
-        imagePullPolicy: Always
+        imagePullPolicy: "IfNotPresent"
         env:
         - name: KAFKA_URL
           valueFrom:
