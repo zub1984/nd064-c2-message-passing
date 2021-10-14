@@ -16,7 +16,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0blocation_event.proto\"\x94\x02\n\x0clLocationEventMessage\x12\n\n\x02userId\x18\x01 \x01(\t\x12\x12\n\nlatitude\x18\x02 \x01(\t\x12$\n\x06longitude\x18\x03 \x01(\x0e\x32\x14\x12\x12\n\n\x18\x04 \x01(\t\x12*\n\t\x18\x05 \x03(\x0e\x32\x17\"?\n\x06\x12\n\n\x06\x10\x00\x12\x0e\n\n\x10\x01\x12\r\n\t\x10\x02\x12\n\n\x06\x46\x41\x10\x03\"=\n\t\x12\x0c\n\x08\x10\x00\x12\t\n\x05\x10\x01\x12\n\n\x06\x10\x02\x12\x0b\n\x07\x10\x03\"\x07\n\x05\x45\"1\n\x10\x12\x1d\n\x06location_events\x18\x01 \x03(\x0b\x32\r.location_eventMessage2X\n\x0clocation_eventServicer\x12&\n\x06\x43reate\x12\r.location_eventMessage\x1a\r.location_eventMessage\x12 \n\x03\x12\x06\x1a\x11\x06proto3'
+  serialized_pb=b'\n\x17\x6Cocation_event.proto\"N\n\x17\x4CocationEventMessage\x12\x0e\n\x06userId\x18\x01 \x01(\x05\x12\x10\n\x08latitude\x18\x02 \x01(\x05\x12\x11\n\tlongitude\x18\x03 \x01(\x05\x32K\n\x0bItemService\x12<\n\x06\x43reate\x12\x18.LocationEventMessage\x1a\x18.LocationEventMessage\x06proto3'
 )
 
 _location_eventMESSAGE = _descriptor.Descriptor(
@@ -74,9 +74,9 @@ location_eventMessage = _reflection.GeneratedProtocolMessageType('LocationEventM
   })
 _sym_db.RegisterMessage(location_eventMessage)
 
-__ITEMSERVICE = _descriptor.ServiceDescriptor(
-  name='ItemService',
-  full_name='ItemService',
+__LOCATIONEVENTSERVICE = _descriptor.ServiceDescriptor(
+  name='location_eventService',
+  full_name='location_eventService',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
@@ -86,7 +86,7 @@ __ITEMSERVICE = _descriptor.ServiceDescriptor(
   methods=[
   _descriptor.MethodDescriptor(
     name='Create',
-    full_name='ItemService.Create',
+    full_name='location_eventService.Create',
     index=0,
     containing_service=None,
     input_type=_location_eventMESSAGE,
@@ -95,8 +95,8 @@ __ITEMSERVICE = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(__ITEMSERVICE)
+_sym_db.RegisterServiceDescriptor(__LOCATIONEVENTSERVICE)
 
-DESCRIPTOR.services_by_name['ItemService'] = __ITEMSERVICE
+DESCRIPTOR.services_by_name['location_eventService'] = __LOCATIONEVENTSERVICE
 
 # @@protoc_insertion_point(module_scope)

@@ -6,6 +6,6 @@ message LocationEventMessage {
   int32 longitude = 3;
 }
 
-service ItemService {
+service location_eventService {
   rpc Create(LocationEventMessage) returns (LocationEventMessage);
 }

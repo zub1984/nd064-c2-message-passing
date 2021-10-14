@@ -33,7 +33,7 @@ spec:
       containers:
       - image: zub1984/connections-service-api:main
         name: connections-api-container
-        imagePullPolicy: Always
+        imagePullPolicy: "IfNotPresent"
         env:
         - name: DB_USERNAME
           valueFrom:
