@@ -15,7 +15,7 @@ logging.info('kafka_url : ', kafka_url)
 logging.info('kafka_topic : ', kafka_topic)
 producer = KafkaProducer(bootstrap_servers=kafka_url)
 
-class LocationEventService(location_event_pb2_grpc.LocationEventService):
+class LocationEventService(location_event_pb2_grpc.location_eventService):
     
     def Create(self, request, context):
         print("Received a message!")
