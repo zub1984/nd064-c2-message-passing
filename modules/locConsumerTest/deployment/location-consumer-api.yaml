@@ -30,7 +30,7 @@ spec:
         service: location-consumer-api
     spec:
       containers:
-      - image: catzzzlol/location-consumer-api:latest
+      - image: zub1984/location-consumer-api:latest
         name: location-consumer-api-container
         imagePullPolicy: Always
         env:
