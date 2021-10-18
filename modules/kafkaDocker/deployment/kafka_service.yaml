@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: kafkatest
+  name: kafkatest
+spec:
+  ports:
+  - name: "9092"
+    port: 9092
+    targetPort: 9092
+  selector:
+    service: kafkatest
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: kafkatest
+  name: kafkatest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: kafkatest
+  template:
+    metadata:
+      labels:
+        service: kafkatest
+    spec:
+      containers:
+      - image: zub1984/kafkatest:latest
+        name: kafkatest-container
+        imagePullPolicy: Always
+        env:
+        - name: KAFKA_URL
+          valueFrom:
+            configMapKeyRef:
+              name: config-kafkatest-map
+              key: KAFKA_URL
+        - name: PYTHONUNBUFFERED
+          value: '0'
+      restartPolicy: Always
