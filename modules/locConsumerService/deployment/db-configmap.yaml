@@ -6,6 +6,6 @@ data:
   DB_HOST: "postgres-connections"
   DB_PORT: "5432"
   KAFKA_URL: localhost:9092
-  KAFKA_TOPIC: test
+  KAFKA_TOPIC: location
 metadata:
   name: config-location-consumer-map
