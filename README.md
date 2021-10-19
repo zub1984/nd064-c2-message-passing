@@ -1,4 +1,8 @@
 # UdaConnect
+
+[//]: # (Image References)
+[image1]: ./docs/architecture_design.png
+
 ## Overview
 ### Background
 Conferences and conventions are hotspots for making connections. Professionals in attendance often share the same interests and can make valuable business and personal connections with one another. At the same time, these events draw a large crowd and it's often hard to make these connections in the midst of all of these events' excitement and energy. To help attendees make connections, we are building the infrastructure for a service that can inform attendees if they have attended the same booths and presentations at an event.
@@ -76,12 +80,86 @@ Type `exit` to exit the virtual OS and you will find yourself back in your compu
 Afterwards, you can test that `kubectl` works by running a command like `kubectl describe services`. It should not return any errors.
 
 ### Steps
-1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
-2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
-3. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
-4. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
-5. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
-6. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+Application is refactored in 5 five microservices modules folder. 
+
+* Pre-Requisite : run `sh scripts/run_db_command.sh <POD_NAME>` location in folder personService - seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`).
+
+1. Frontend Microservice
+* `kubectl apply -f deployment/` - Set service and deployment for frontend web app
+* Verify pod's status if running access `http://localhost:30000/` for testing.
+
+2. Person Microservice
+* `kubectl apply -f deployment/` - Set service and deployment for person
+* When pods status are running, run the script located in person `personService/scripts/run_db_command.sh` with pod identifier `sh scripts/run_db_command.sh <POD_NAME>`. Pod name like (postgres-person-xxxxx-pod)).  
+* Access the `http://localhost:30001/` for testing.
+
+3. Connection Microservice
+* `kubectl apply -f deployment/` - Set service and deployment for connection
+* When pods status are running, run the script located in person `connectionService/scripts/run_db_command.sh` with pod identifier `sh scripts/run_db_command.sh <POD_NAME>`. Pod name like (postgres-connections-xxxxx-pod)).  
+* Access the `http://localhost:30001/` for testing.
+
+#### Kafka on k3s : KAFKA PACKAGED BY BITNAMI HELM CHARTS
+Deploying Bitnami applications as Helm Charts is the easiest way to get started with our applications on Kubernetes.
+
+[Kafka Packaged By Bitnami For Kubernetes](https://docs.bitnami.com/kubernetes/infrastructure/kafka/get-started/install/)
+
+sample output:
+```
+localhost:~ # helm version
+version.BuildInfo{Version:"v3.7.1", GitCommit:"1d11fcb5d3f3bf00dbe6fe31b8412839a96b3dc4", GitTreeState:"clean", GoVersion:"go1.16.9"}
+localhost:~ # kubectl config view --raw > ~/.kube/config
+localhost:~ # helm install my-release bitnami/kafka
+WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /root/.kube/config
+WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /root/.kube/config
+NAME: my-release
+LAST DEPLOYED: Mon Oct 18 22:35:45 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+** Please be patient while the chart is being deployed **
+
+Kafka can be accessed by consumers via port 9092 on the following DNS name from within your cluster:
+
+    my-release-kafka.default.svc.cluster.local
+
+Each Kafka broker can be accessed by producers via port 9092 on the following DNS name(s) from within your cluster:
+
+    my-release-kafka-0.my-release-kafka-headless.default.svc.cluster.local:9092
+
+To create a pod that you can use as a Kafka client run the following commands:
+
+    kubectl run my-release-kafka-client --restart='Never' --image docker.io/bitnami/kafka:2.8.1-debian-10-r0 --namespace default --command -- sleep infinity
+    kubectl exec --tty -i my-release-kafka-client --namespace default -- bash
+
+    PRODUCER:
+        kafka-console-producer.sh \
+
+            --broker-list my-release-kafka-0.my-release-kafka-headless.default.svc.cluster.local:9092 \
+            --topic test
+
+    CONSUMER:
+        kafka-console-consumer.sh \
+
+            --bootstrap-server my-release-kafka.default.svc.cluster.local:9092 \
+            --topic test \
+            --from-beginning
+localhost:~ #
+```
+
+#### OR Create docker image from scratch (optional)
+
+* `kubectl apply -f deployment/` - Set service and deployment for kafkaDocker
+* When pods status is running, zookeeper and kafka broker service will be available. 
+
+4. Loction Event Producer Service Microservice
+* `kubectl apply -f deployment/` - Set service and deployment for locEventProducerService
+* When pods status are running, Pod name like (loc-event-api-xxxxx-xxxxx)).  
+
+5. Loction Cosumer Service Microservice
+* `kubectl apply -f deployment/` - Set service and deployment for locConsumerService
+* When pods status are running, Pod name like (loc-consumer-api-xxxx-xxxx)).
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.
 
@@ -147,7 +225,7 @@ Your architecture diagram should focus on the services and how they talk to one 
 2. [Google Docs](docs.google.com) Drawings (In a Google Doc, _Insert_ - _Drawing_ - _+ New_)
 3. [Diagrams.net](https://app.diagrams.net/)
 
-![Alt text](./docs/architecture_design.png?raw=true "Architecture Diagram")
+![][image1]
 
 ## Tips
 * We can access a running Docker container using `kubectl exec -it <pod_id> sh`. From there, we can `curl` an endpoint to debug network issues.
