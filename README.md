@@ -1,7 +1,7 @@
 # UdaConnect
 
 [//]: # (Image References)
-[image1]: ./docs/architecture_design.png
+[image]: ./docs/architecture_design.PNG
 
 ## Overview
 ### Background
@@ -225,7 +225,7 @@ Your architecture diagram should focus on the services and how they talk to one 
 2. [Google Docs](docs.google.com) Drawings (In a Google Doc, _Insert_ - _Drawing_ - _+ New_)
 3. [Diagrams.net](https://app.diagrams.net/)
 
-![][image1]
+![][image]
 
 ## Tips
 * We can access a running Docker container using `kubectl exec -it <pod_id> sh`. From there, we can `curl` an endpoint to debug network issues.
