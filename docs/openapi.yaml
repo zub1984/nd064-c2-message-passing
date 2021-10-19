@@ -1,67 +1,63 @@
 openapi: 3.0.0
 info:
-  description: Manage the items in a stockroom.
+  description: Query person information in UdaConnect.
   version: "1.0.0"
-  title: Simple Inventory API
+  title: Person API
 paths:
-  /items/{itemId}:
+  /api/person/{person_id}:
     get:
-      summary: Retrieve an item from the inventory
-      operationId: getInventory
-      description: By passing in an item_id you can retrieve the items information
+      summary: Retrieve a person from UdaConnect
+      operationId: getPerson
+      description: By passing person_id you can retrieve the person information
       parameters:
         - in: path
-          name: itemId
+          name: person_id
           schema:
-            type: string
+            type: integer
           required: true
-          description: ID of the item to get
+          description: ID of the person to get
       responses:
         '200':
-          description: Successfully retrieved an item
+          description: Successfully retrieved a person
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InventoryItem'
-        '404':
-          description: Requested item ID was not found
-  /items:
-    post:
-      summary: Creates an item in the inventory
-      operationId: addItem
-      description: Adds an item to the Inventory
+                $ref: '#/components/schemas/person'
+        '500':
+          description: Internal Server Error
+  /api/person:
+    get:
+      summary: Retrieve persons in UdaConnect
+      operationId: getPersons
+      description: retrieve person informations in UdaConnect
       responses:
-        '201':
-          description: Item created
-        '400':
-          description: Invalid input, object invalid
-        '409':
-          description: An existing item already exists
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InventoryItem'
-        description: Inventory item to add
+        '200':
+          description: Successfully retrieved person informations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/person'
+        '500':
+          description: Internal Server Error
 components:
   schemas:
-    InventoryItem:
+    person:
       type: object
       required:
+        - first_name
+        - last_name
         - id
-        - name
-        - brand_name
-        - weight
+        - company_name
       properties:
+        first_name:
+          type: string
+          example: "Pam"
+        last_name:
+          type: string
+          example: "Trexler"
         id:
-          type: string
+          type: integer
           example: 1
-        name:
-          type: string
-          example: Egg Pan
-        brandName:
-          type: string
-          example: "Acme"
-        weight:
-         type: number
-         example: 2.1
+        company_name:
+         type: string
+         example: "Hampton, Hampton and McQuill"
